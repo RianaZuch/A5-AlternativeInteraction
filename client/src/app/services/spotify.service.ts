@@ -36,36 +36,26 @@ export class SpotifyService {
     //Make sure you're encoding the resource with encodeURIComponent().
     //Depending on the category (artist, track, album), return an array of that type of data.
     //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
-      this.sendRequestToExpress(`/search/${category}/${encodeURIComponent(resource)}`).then((data) => {
-       // console.log(data);
-       let result = data.artists.items.map((data) => {
-        return{
-          category: category,
-          name: data.name,
-          imageURL: data.images[0],
-          id: data.id,
-          url: data.external_urls
-        }
+      return this.sendRequestToExpress(`/search/${category}/${encodeURIComponent(resource)}`).then((data) => {
+        //parse the id only from data
+        let resultIds = data.artists.items.map((data) => {
+          return data.id
       })
-      //the result returns an array that have the same format as the ResourceData class
-      console.log(result) 
-      let artistArray = result.map((artist) => {
-        console.log("Artist: "artist)
-        return this.getArtist(artist.id);
+      console.log(resultIds)
+      let artistArray = resultIds.map((id) => {
+        // console.log("artist id:"+artist.id)
+        return this.getArtist(id);
       })
-      // console.log(artistArray);
+      return artistArray;
     });
-    return null;
   }
 
   getArtist(artistId:string):Promise<ArtistData> {
     //TODO: use the artist endpoint to make a request to express.
     //Again, you may need to encode the artistId.
-    return this.sendRequestToExpress(`/search/artists/${encodeURIComponent(artistId)}`).then((data) => {
-      console.log(data)
+    return this.sendRequestToExpress(`/artist/${encodeURIComponent(artistId)}`).then((data) => {
       return new ArtistData(data);
     });
-    // return null;
   }
 
   getRelatedArtists(artistId:string):Promise<ArtistData[]> {
