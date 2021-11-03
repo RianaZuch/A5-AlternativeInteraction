@@ -32,18 +32,18 @@ export class SearchComponent implements OnInit {
     // console.log(this.spotifyService.searchFor(this.searchCategory,this.searchString));
     let response = this.spotifyService.searchFor(this.searchCategory,this.searchString);
     for (let a in response){
-      console.log(a)  //returns __zone_symbol__state and __zone_symbol__value
+      // console.log(a)  //returns __zone_symbol__state and __zone_symbol__value
     }
-
-    response.then(data => console.log(data));//console.log(data)returns array of ArtistData
+    let artistPromsises = [];
+    // response.then(data => console.log(data));//console.log(data)returns array of ArtistData
     response.then(data => {
-      console.log(data.length) //20
-      console.log(data) //array of ArtistData
-      console.log(data[2].name); //name of the third artist
-      for(let x = 0; x < data.length; x++){ //seems like I can't do for (let..in..), instead, for(let x=0....) works
-        console.log(data[x]); //each ArtiistData in the data 
+      for(let x = 0; x < data.length; x++){ 
+        // this.resources.push(data[x]) //does not work
+        artistPromsises.push(data[x]);
       }
     })
+    this.resources = artistPromsises;
+    console.log(this.resources)
   }
   
 }
