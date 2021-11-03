@@ -24,12 +24,12 @@ export class SearchComponent implements OnInit {
 
   search() {
     //TODO: call search function in spotifyService and parse response
-    console.log(this.searchString)
-    console.log(this.searchCategory)
-    console.log(this.searchCategories)
-    console.log(this.spotifyService.searchFor(this.searchCategory,this.searchString))
-    // console.log(this.resources[3],this.resources["id"]);
-    // let searchInfo = this.spotifyService.searchFor(this.searchCategory,this.resources["id"]);
+    // console.log(this.searchString)
+    // console.log(this.searchCategory)
+    // console.log(this.searchCategories)
+
+    // this.resources = this.spotifyService.searchFor(this.searchCategory,this.searchString);
+    console.log(this.spotifyService.searchFor(this.searchCategory,this.searchString));
   }
 
 }
