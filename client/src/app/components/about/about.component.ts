@@ -10,7 +10,7 @@ export class AboutComponent implements OnInit {
   name:string = null;
   profile_pic:string = "../../../assets/unknown.jpg";
   profile_link:string = null;
-
+  loggedIn:boolean = false;
   //TODO: inject the Spotify service
   constructor(private spotifyService: SpotifyService) { }
 
@@ -26,6 +26,7 @@ export class AboutComponent implements OnInit {
       this.name = data.name;
       this.profile_pic = data.imageURL;
       this.profile_link = data.spotifyProfile;
+      this.loggedIn = true;
     });
     
   }
