@@ -22,7 +22,7 @@ export class AboutComponent implements OnInit {
 
   meInfo(){
     this.spotifyService.aboutMe().then((data) => {
-      console.log(data);
+      // console.log(data);
       this.name = data.name;
       this.profile_pic = data.imageURL;
       this.profile_link = data.spotifyProfile;

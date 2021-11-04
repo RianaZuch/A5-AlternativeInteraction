@@ -58,21 +58,27 @@ export class SpotifyService {
   getRelatedArtists(artistId:string):Promise<ArtistData[]> {
     //TODO: use the related artist endpoint to make a request to express and return an array of artist data.
     return this.sendRequestToExpress(`/artist-related-artists/${encodeURIComponent(artistId)}`).then((data) => {
-      return data.map((data) => {return new ArtistData(data)})
+      return data.map((data) => {
+        return new ArtistData(data)
+      })
     });
   }
 
   getTopTracksForArtist(artistId:string):Promise<TrackData[]> {
     //TODO: use the top tracks endpoint to make a request to express.
     return this.sendRequestToExpress(`/artist-albums/${encodeURIComponent(artistId)}/top-tracks`).then((data) => {
-      return data.map((data) => {return new TrackData(data)})
+      return data.map((data) => {
+        return new TrackData(data)
+      })
     });
   }
 
   getAlbumsForArtist(artistId:string):Promise<AlbumData[]> {
     //TODO: use the albums for an artist endpoint to make a request to express.
     return this.sendRequestToExpress(`/artist-top-tracks/${encodeURIComponent(artistId)}`).then((data) => {
-      return data.map((data) => {return new AlbumData(data)})
+      return data.map((data) => {
+        return new AlbumData(data)
+      })
     });
   }
 
@@ -86,7 +92,9 @@ export class SpotifyService {
   getTracksForAlbum(albumId:string):Promise<TrackData[]> {
     //TODO: use the tracks for album endpoint to make a request to express.
     return this.sendRequestToExpress(`/album-tracks/${encodeURIComponent(albumId)}`).then((data) => {
-      return data.map((data) => {return new TrackData(data)})
+      return data.map((data) => {
+        return new TrackData(data)
+      })
     });
   }
 
@@ -100,7 +108,9 @@ export class SpotifyService {
   getAudioFeaturesForTrack(trackId:string):Promise<TrackFeature[]> {
     //TODO: use the audio features for track endpoint to make a request to express.
     return this.sendRequestToExpress(`/track-audio-features/${encodeURIComponent(trackId)}`).then((data) => {
-      return data.map((data) => {return new TrackData(data)})
+      return data.map((data) => {
+        return new TrackData(data)
+      })
     });
   }
 }
