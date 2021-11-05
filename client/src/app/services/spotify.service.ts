@@ -6,6 +6,8 @@ import { TrackData } from '../data/track-data';
 import { ResourceData } from '../data/resource-data';
 import { ProfileData } from '../data/profile-data';
 import { TrackFeature } from '../data/track-feature';
+import { createNgModule } from '@angular/compiler/src/core';
+import { features } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +59,7 @@ export class SpotifyService {
   getRelatedArtists(artistId:string):Promise<ArtistData[]> {
     //TODO: use the related artist endpoint to make a request to express and return an array of artist data.
     return this.sendRequestToExpress(`/artist-related-artists/${encodeURIComponent(artistId)}`).then((data) => {
-      return data.map((data) => {
+      return data['artists'].map((data) => {
         return new ArtistData(data)
       })
     });
@@ -65,8 +67,8 @@ export class SpotifyService {
 
   getTopTracksForArtist(artistId:string):Promise<TrackData[]> {
     //TODO: use the top tracks endpoint to make a request to express.
-    return this.sendRequestToExpress(`/artist-albums/${encodeURIComponent(artistId)}/top-tracks`).then((data) => {
-      return data.map((data) => {
+    return this.sendRequestToExpress(`/artist-top-tracks/${encodeURIComponent(artistId)}`).then((data) => {
+      return data['tracks'].map((data) => {
         return new TrackData(data)
       })
     });
@@ -74,8 +76,8 @@ export class SpotifyService {
 
   getAlbumsForArtist(artistId:string):Promise<AlbumData[]> {
     //TODO: use the albums for an artist endpoint to make a request to express.
-    return this.sendRequestToExpress(`/artist-top-tracks/${encodeURIComponent(artistId)}`).then((data) => {
-      return data.map((data) => {
+    return this.sendRequestToExpress(`/artist-albums/${encodeURIComponent(artistId)}`).then((data) => {
+      return data['items'].map((data) => {
         return new AlbumData(data)
       })
     });
@@ -91,7 +93,7 @@ export class SpotifyService {
   getTracksForAlbum(albumId:string):Promise<TrackData[]> {
     //TODO: use the tracks for album endpoint to make a request to express.
     return this.sendRequestToExpress(`/album-tracks/${encodeURIComponent(albumId)}`).then((data) => {
-      return data.map((data) => {
+      return data['items'].map((data) => {
         return new TrackData(data)
       })
     });
@@ -106,10 +108,18 @@ export class SpotifyService {
 
   getAudioFeaturesForTrack(trackId:string):Promise<TrackFeature[]> {
     //TODO: use the audio features for track endpoint to make a request to express.
+    let featuresArray = [];
     return this.sendRequestToExpress(`/track-audio-features/${encodeURIComponent(trackId)}`).then((data) => {
-      return data.map((data) => {
-        return new TrackData(data)
-      })
-    });
-  }
+      for (let feature in data){
+        //get feature types that are mentioned in track-feature.ts
+        if(feature == 'danceability' ||feature == 'energy'||feature == 'speechiness'||feature == 'acousticness'||feature == 'instrumentalness'||feature == 'liveness'||feature == 'valence'){
+          featuresArray.push(new TrackFeature(feature,data[feature]));
+        }
+      }
+      return featuresArray;
+    })
+  };
+  
+  
+  
 }
