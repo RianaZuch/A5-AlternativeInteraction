@@ -24,26 +24,16 @@ export class SearchComponent implements OnInit {
 
   search() {
     //TODO: call search function in spotifyService and parse response
-    // console.log(this.searchString)
-    // console.log(this.searchCategory)
-    // console.log(this.searchCategories)
-
-    // this.resources = this.spotifyService.searchFor(this.searchCategory,this.searchString);
-    // console.log(this.spotifyService.searchFor(this.searchCategory,this.searchString));
-    let response = this.spotifyService.searchFor(this.searchCategory,this.searchString);
-    for (let a in response){
-      // console.log(a)  //returns __zone_symbol__state and __zone_symbol__value
+    //perform search only when query is not empty
+    if(this.searchString != undefined && this.searchString != "" ){
+      let response = this.spotifyService.searchFor(this.searchCategory,this.searchString);
+      let promisesArray = [];
+      response.then(data => {
+        for(let x = 0; x < data.length; x++){ 
+          promisesArray.push(data[x]);
+        }
+      })
+      this.resources = promisesArray; //array of resources
     }
-    let artistPromsises = [];
-    // response.then(data => console.log(data));//console.log(data)returns array of ArtistData
-    response.then(data => {
-      for(let x = 0; x < data.length; x++){ 
-        // this.resources.push(data[x]) //does not work
-        artistPromsises.push(data[x]);
-      }
-    })
-    this.resources = artistPromsises;
-    console.log(this.resources)
   }
-  
 }
