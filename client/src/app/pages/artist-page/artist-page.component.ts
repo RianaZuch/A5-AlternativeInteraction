@@ -16,18 +16,14 @@ export class ArtistPageComponent implements OnInit {
 	relatedArtists:ArtistData[];
 	topTracks:TrackData[];
 	albums:AlbumData[];
-  artistName:string;
 
   constructor(private route: ActivatedRoute, private spotifyService:SpotifyService) { }
 
   ngOnInit() {
-
   	this.artistId = this.route.snapshot.paramMap.get('id');
     //TODO: Inject the spotifyService and use it to get the artist data, related artists, top tracks for the artist, and the artist's albums
     this.spotifyService.getArtist(this.artistId).then(data => {
       this.artist = data;
-      this.artistName = this.artist.name.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g,'');
-      this.artistName = this.artistName.replace(/ /g,'');
     });
 
     this.spotifyService.getRelatedArtists(this.artistId).then(data => {

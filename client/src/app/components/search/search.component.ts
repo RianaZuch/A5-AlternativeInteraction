@@ -24,7 +24,6 @@ export class SearchComponent implements OnInit {
 
   search() {
     //TODO: call search function in spotifyService and parse response
-    //perform search only when query is not empty
     if(this.searchString != undefined && this.searchString != "" ){
       let response = this.spotifyService.searchFor(this.searchCategory,this.searchString);
       let promisesArray = [];
