@@ -15,7 +15,6 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { SearchComponent } from './components/search/search.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ThermometerComponent } from './components/thermometer/thermometer.component';
-import { HandtrackerComponent } from './handtracker/handtracker.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { HandtrackerComponent } from './handtracker/handtracker.component';
     CarouselComponent,
     SearchComponent,
     HomePageComponent,
-    ThermometerComponent,
-    HandtrackerComponent
+    ThermometerComponent
   ],
   imports: [
     BrowserModule,
